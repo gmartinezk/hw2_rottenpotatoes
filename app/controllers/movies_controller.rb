@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    debugger
     @all_ratings = Movie.ratings
     @ratings_values = {}
     if params[:ratings]
@@ -15,7 +16,7 @@ class MoviesController < ApplicationController
       end
       @rel = Movie.where(:rating => params[:ratings].keys)
     else
-      @rel = Movie.where("1=1")
+      @rel = Movie.where("1=2")
     end
     if params[:order]
       if params[:order] == "title"
