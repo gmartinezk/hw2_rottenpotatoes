@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.ratings
     @ratings_values = {}
 
-    if (not params[:ratings] and not params[:order]) and (session[:ratings] or session[:order])
+    if (not params[:ratings] and not params[:order] and not params[:commit]) and (session[:ratings] or session[:order])
       redirect_to movies_path(:ratings => session[:ratings], :order => session[:order])
     end
 
