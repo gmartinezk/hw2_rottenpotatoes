@@ -7,8 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
+    debugger
     @all_ratings = Movie.ratings
     @ratings_values = {}
+
+    if (not params[:ratings] and not params[:order]) and (session[:ratings] or session[:order])
+      redirect_to movies_path(:ratings => session[:ratings], :order => session[:order])
+    end
 
     if params[:ratings]
       params[:ratings].each_key do |rating|
