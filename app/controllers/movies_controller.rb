@@ -7,7 +7,26 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings = Movie.ratings
+    @ratings_values = {}
+    if params[:ratings]
+      params[:ratings].each_key do |rating|
+        @ratings_values.merge!({rating => true})
+      end
+      @rel = Movie.where(:rating => params[:ratings].keys)
+    else
+      @rel = Movie.where("1=1")
+    end
+    if params[:order]
+      if params[:order] == "title"
+        @class_title = "hilite"
+      else
+        @class_date = "hilite"
+      end
+      @movies = @rel.order(params[:order])
+    else
+      @movies = @rel.all
+    end
   end
 
   def new
